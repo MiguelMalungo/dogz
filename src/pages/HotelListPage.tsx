@@ -1,9 +1,10 @@
+import React from 'react'
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import Header from '../components/layout/Header'
-import HotelCard from '../components/hotels/HotelCard'
+import { Header } from '../components/layout/Header'
+import { HotelCard } from '../components/hotels/HotelCard'
 import { mockHotels } from '../data/hotels'
-import { User, Hotel } from '../types'
+import type { User, Hotel } from '../types'
 import { Filter, Grid, List, Star } from 'lucide-react'
 
 interface HotelListPageProps {
@@ -38,7 +39,7 @@ const HotelListPage = ({ user, onLogout }: HotelListPageProps) => {
     
     if (petType) {
       filtered = filtered.filter(hotel => 
-        hotel.petTypes.includes(petType)
+        hotel.petTypes.includes(petType as any)
       )
     }
     
@@ -63,7 +64,7 @@ const HotelListPage = ({ user, onLogout }: HotelListPageProps) => {
     // Amenities filter
     if (filters.amenities.length > 0) {
       filtered = filtered.filter(hotel =>
-        filters.amenities.every(amenity => hotel.amenities.includes(amenity))
+        filters.amenities.every(amenity => hotel.amenities.includes(amenity as any))
       )
     }
 
@@ -161,16 +162,16 @@ const HotelListPage = ({ user, onLogout }: HotelListPageProps) => {
               <div className="mb-6">
                 <h3 className="text-sm font-medium text-gray-900 mb-3">Amenities</h3>
                 <div className="space-y-2">
-                  {allAmenities.slice(0, 8).map((amenity) => (
-                    <label key={amenity} className="flex items-center">
+                  {allAmenities.slice(0, 8).map((amenity, index) => (
+                    <label key={index} className="flex items-center">
                       <input
                         type="checkbox"
-                        checked={filters.amenities.includes(amenity)}
+                        checked={filters.amenities.includes(amenity as any)}
                         onChange={(e) => {
                           if (e.target.checked) {
                             setFilters({
                               ...filters,
-                              amenities: [...filters.amenities, amenity]
+                              amenities: [...filters.amenities, amenity as any]
                             })
                           } else {
                             setFilters({
@@ -181,7 +182,7 @@ const HotelListPage = ({ user, onLogout }: HotelListPageProps) => {
                         }}
                         className="mr-2"
                       />
-                      <span className="text-sm text-gray-600">{amenity}</span>
+                      <span className="text-sm text-gray-600">{String(amenity)}</span>
                     </label>
                   ))}
                 </div>

@@ -1,5 +1,6 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import React from 'react'
 import { useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Star, MapPin, Calendar, Users } from 'lucide-react'
 import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'

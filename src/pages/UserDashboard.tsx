@@ -1,6 +1,7 @@
+import React from 'react'
 import { useState } from 'react'
-import Header from '../components/layout/Header'
-import { User } from '../types'
+import { Header } from '../components/layout/Header'
+import type { User } from '../types'
 import { Calendar, MapPin, Star, Heart, Settings, LogOut } from 'lucide-react'
 
 interface UserDashboardProps {
