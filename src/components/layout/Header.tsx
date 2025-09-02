@@ -83,7 +83,7 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
               className="flex items-center space-x-2 hover:opacity-80 transition-opacity cursor-pointer"
             >
               <img 
-                src="/images/logo_main.png" 
+                src="/dogz/images/logo_main.png" 
                 alt="stay.me logo" 
                 className="h-8 w-8"
                 style={{ 
