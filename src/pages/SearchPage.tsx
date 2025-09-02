@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Search, MapPin, Calendar, X } from 'lucide-react'
@@ -9,7 +8,7 @@ import { useAuthStore } from '../stores/authStore'
 
 export function SearchPage() {
   const navigate = useNavigate()
-  const { user, isAuthenticated } = useAuthStore()
+  const { isAuthenticated } = useAuthStore()
   const [location, setLocation] = useState('')
   const [checkIn, setCheckIn] = useState('')
   const [checkOut, setCheckOut] = useState('')

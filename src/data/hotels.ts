@@ -1,14 +1,16 @@
-import { Hotel } from '../types';
+import type { Hotel } from '../types';
 
 export const mockHotels: Hotel[] = [
   {
     id: '1',
     name: 'Pawsome Palace',
+    slug: 'pawsome-palace',
     location: {
       address: '123 Bark Street',
       city: 'New York',
       state: 'NY',
-      coordinates: [40.7128, -74.0060],
+      country: 'USA',
+      coordinates: [-74.0060, 40.7128],
     },
     rating: 4.8,
     reviewCount: 156,
@@ -17,7 +19,13 @@ export const mockHotels: Hotel[] = [
       max: 120,
       currency: 'USD',
     },
-    amenities: ['Outdoor Play Area', 'Grooming Services', 'Vet on Site', '24/7 Care', 'Webcam Access'],
+    amenities: [
+      { id: '1', name: 'Outdoor Play Area', icon: '🏞️', category: 'basic' },
+      { id: '2', name: 'Grooming Services', icon: '✂️', category: 'premium' },
+      { id: '3', name: 'Vet on Site', icon: '🏥', category: 'premium' },
+      { id: '4', name: '24/7 Care', icon: '🕐', category: 'basic' },
+      { id: '5', name: 'Webcam Access', icon: '📹', category: 'premium' }
+    ],
     images: [
       'https://images.unsplash.com/photo-1587764379873-97837921fd44?w=800',
       'https://images.unsplash.com/photo-1587764379873-97837921fd44?w=800',
@@ -28,18 +36,26 @@ export const mockHotels: Hotel[] = [
       checkIn: '2:00 PM',
       checkOut: '11:00 AM',
       cancellation: 'Free cancellation up to 24 hours before check-in',
+      petPolicies: ['All pets must be up to date on vaccinations', 'Maximum 2 pets per booking']
     },
-    petTypes: ['Dogs', 'Cats'],
+    petTypes: ['dog', 'cat'],
     capacity: 50,
+    availability: true,
+    featured: true,
+    ownerId: 'owner1',
+    createdAt: new Date('2024-01-01'),
+    updatedAt: new Date('2024-01-01')
   },
   {
     id: '2',
     name: 'Cozy Critter Cottage',
+    slug: 'cozy-critter-cottage',
     location: {
       address: '456 Meow Avenue',
       city: 'Los Angeles',
       state: 'CA',
-      coordinates: [34.0522, -118.2437],
+      country: 'USA',
+      coordinates: [-118.2437, 34.0522],
     },
     rating: 4.6,
     reviewCount: 89,
@@ -48,7 +64,12 @@ export const mockHotels: Hotel[] = [
       max: 85,
       currency: 'USD',
     },
-    amenities: ['Indoor Play Area', 'Feeding Schedule', 'Medication Administered', 'Daily Updates'],
+    amenities: [
+      { id: '6', name: 'Indoor Play Area', icon: '🏠', category: 'basic' },
+      { id: '7', name: 'Feeding Schedule', icon: '🍽️', category: 'basic' },
+      { id: '8', name: 'Medication Administered', icon: '💊', category: 'premium' },
+      { id: '9', name: 'Daily Updates', icon: '📱', category: 'basic' }
+    ],
     images: [
       'https://images.unsplash.com/photo-1587764379873-97837921fd44?w=800',
       'https://images.unsplash.com/photo-1587764379873-97837921fd44?w=800',
@@ -59,102 +80,15 @@ export const mockHotels: Hotel[] = [
       checkIn: '3:00 PM',
       checkOut: '10:00 AM',
       cancellation: 'Free cancellation up to 48 hours before check-in',
+      petPolicies: ['Quiet environment for sensitive pets', 'Individual attention guaranteed']
     },
-    petTypes: ['Dogs', 'Cats', 'Birds'],
+    petTypes: ['dog', 'cat', 'bird'],
     capacity: 25,
-  },
-  {
-    id: '3',
-    name: 'Luxury Pet Resort',
-    location: {
-      address: '789 Wag Way',
-      city: 'Miami',
-      state: 'FL',
-      coordinates: [25.7617, -80.1918],
-    },
-    rating: 4.9,
-    reviewCount: 234,
-    priceRange: {
-      min: 75,
-      max: 200,
-      currency: 'USD',
-    },
-    amenities: ['Swimming Pool', 'Spa Services', 'Training Classes', 'Premium Food', 'Private Suites'],
-    images: [
-      'https://images.unsplash.com/photo-1587764379873-97837921fd44?w=800',
-      'https://images.unsplash.com/photo-1587764379873-97837921fd44?w=800',
-      'https://images.unsplash.com/photo-1587764379873-97837921fd44?w=800',
-    ],
-    description: 'Ultimate luxury experience for your pets with premium amenities, spa treatments, and personalized attention.',
-    policies: {
-      checkIn: '1:00 PM',
-      checkOut: '12:00 PM',
-      cancellation: 'Free cancellation up to 72 hours before check-in',
-    },
-    petTypes: ['Dogs', 'Cats'],
-    capacity: 30,
-  },
-  {
-    id: '4',
-    name: 'Happy Tails Inn',
-    location: {
-      address: '321 Purr Place',
-      city: 'Chicago',
-      state: 'IL',
-      coordinates: [41.8781, -87.6298],
-    },
-    rating: 4.4,
-    reviewCount: 67,
-    priceRange: {
-      min: 25,
-      max: 65,
-      currency: 'USD',
-    },
-    amenities: ['Basic Care', 'Feeding', 'Exercise', 'Clean Environment'],
-    images: [
-      'https://images.unsplash.com/photo-1587764379873-97837921fd44?w=800',
-      'https://images.unsplash.com/photo-1587764379873-97837921fd44?w=800',
-      'https://images.unsplash.com/photo-1587764379873-97837921fd44?w=800',
-    ],
-    description: 'Affordable and reliable pet boarding with clean facilities and caring staff. Perfect for budget-conscious pet parents.',
-    policies: {
-      checkIn: '4:00 PM',
-      checkOut: '9:00 AM',
-      cancellation: 'Free cancellation up to 12 hours before check-in',
-    },
-    petTypes: ['Dogs', 'Cats', 'Small Animals'],
-    capacity: 40,
-  },
-  {
-    id: '5',
-    name: 'Furry Friends Farm',
-    location: {
-      address: '654 Farm Road',
-      city: 'Austin',
-      state: 'TX',
-      coordinates: [30.2672, -97.7431],
-    },
-    rating: 4.7,
-    reviewCount: 123,
-    priceRange: {
-      min: 40,
-      max: 95,
-      currency: 'USD',
-    },
-    amenities: ['Large Outdoor Area', 'Farm Animals', 'Hiking Trails', 'Natural Environment'],
-    images: [
-      'https://images.unsplash.com/photo-1587764379873-97837921fd44?w=800',
-      'https://images.unsplash.com/photo-1587764379873-97837921fd44?w=800',
-      'https://images.unsplash.com/photo-1587764379873-97837921fd44?w=800',
-    ],
-    description: 'Rural setting with acres of space for your pets to explore. Perfect for active dogs who love the outdoors.',
-    policies: {
-      checkIn: '2:00 PM',
-      checkOut: '11:00 AM',
-      cancellation: 'Free cancellation up to 24 hours before check-in',
-    },
-    petTypes: ['Dogs'],
-    capacity: 35,
-  },
+    availability: true,
+    featured: false,
+    ownerId: 'owner2',
+    createdAt: new Date('2024-01-01'),
+    updatedAt: new Date('2024-01-01')
+  }
 ];
 

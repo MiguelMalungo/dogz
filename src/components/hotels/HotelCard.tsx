@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Star, MapPin, Heart } from 'lucide-react'
-import { Hotel } from '../../types'
+import type { Hotel } from '../../types'
 
 interface HotelCardProps {
   hotel: Hotel
@@ -55,7 +55,7 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
                 key={index}
                 className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full"
               >
-                {amenity}
+                {amenity.name}
               </span>
             ))}
             {hotel.amenities.length > 3 && (

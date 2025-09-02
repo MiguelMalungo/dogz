@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Header } from '../components/layout/Header'
-import { HotelCard } from '../components/hotels/HotelCard'
+import HotelCard from '../components/hotels/HotelCard'
 import { mockHotels } from '../data/hotels'
 import type { User, Hotel } from '../types'
 import { Filter, Grid, List, Star } from 'lucide-react'
@@ -81,7 +81,7 @@ const HotelListPage = ({ user, onLogout }: HotelListPageProps) => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header user={user} onLogout={onLogout} />
+      <Header />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Header */}
@@ -176,7 +176,7 @@ const HotelListPage = ({ user, onLogout }: HotelListPageProps) => {
                           } else {
                             setFilters({
                               ...filters,
-                              amenities: filters.amenities.filter(a => a !== amenity)
+                              amenities: filters.amenities.filter(a => a !== amenity.name)
                             })
                           }
                         }}
