@@ -1,0 +1,350 @@
+import { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Search, MapPin, Calendar, X } from 'lucide-react'
+import { Button } from '../components/ui/Button'
+import { Input } from '../components/ui/Input'
+import { Header } from '../components/layout/Header'
+import { useAuthStore } from '../stores/authStore'
+
+export function SearchPage() {
+  const navigate = useNavigate()
+  const { user, isAuthenticated } = useAuthStore()
+  const [location, setLocation] = useState('')
+  const [checkIn, setCheckIn] = useState('')
+  const [checkOut, setCheckOut] = useState('')
+  const [guests, setGuests] = useState('1')
+  const [pets, setPets] = useState('1')
+  const [showResults, setShowResults] = useState(false)
+  const [results, setResults] = useState<any[]>([])
+  const [titleFontSize, setTitleFontSize] = useState(32)
+  const [subtitleFontSize, setSubtitleFontSize] = useState(18)
+  const [showAuthModal, setShowAuthModal] = useState(false)
+
+  // Refs for the search card and text container to match widths
+  const searchCardRef = useRef<HTMLDivElement>(null)
+  const textContainerRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  const subtitleRef = useRef<HTMLParagraphElement>(null)
+
+  // Dynamic font sizing to match search card width
+  useEffect(() => {
+    const adjustFontSizes = () => {
+      if (!searchCardRef.current || !titleRef.current || !subtitleRef.current || !textContainerRef.current) return
+      
+      const searchCardWidth = searchCardRef.current.offsetWidth
+      
+      // Make text container match search card width exactly and center it
+      textContainerRef.current.style.width = `${searchCardWidth}px`
+      textContainerRef.current.style.margin = '0 auto'
+      
+      // Adjust title font size - start larger and fit to full card width
+      let titleSize = window.innerWidth < 768 ? 28 : 42
+      titleRef.current.style.fontSize = `${titleSize}px`
+      
+      while (titleRef.current.scrollWidth > searchCardWidth && titleSize > 16) {
+        titleSize -= 1
+        titleRef.current.style.fontSize = `${titleSize}px`
+      }
+      setTitleFontSize(titleSize)
+      
+      // Adjust subtitle font size - start larger and fit to full card width
+      let subtitleSize = window.innerWidth < 768 ? 18 : 24
+      subtitleRef.current.style.fontSize = `${subtitleSize}px`
+      
+      while (subtitleRef.current.scrollWidth > searchCardWidth && subtitleSize > 12) {
+        subtitleSize -= 1
+        subtitleRef.current.style.fontSize = `${subtitleSize}px`
+      }
+      setSubtitleFontSize(subtitleSize)
+    }
+
+    // Initial adjustment with longer delay to ensure elements are rendered
+    setTimeout(adjustFontSizes, 300)
+    
+    // Adjust on window resize
+    window.addEventListener('resize', adjustFontSizes)
+    return () => window.removeEventListener('resize', adjustFontSizes)
+  }, [])
+
+  const mockHotels = [
+    {
+      id: 1,
+      name: "Paws Paradise Resort",
+      location: "San Francisco, CA",
+      rating: 4.8,
+      reviews: 124,
+      price: 89,
+      image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=300&h=200&fit=crop",
+      amenities: ["Pool", "Grooming", "Training", "Pickup/Dropoff"]
+    },
+    {
+      id: 2,
+      name: "Happy Tails Hotel",
+      location: "Los Angeles, CA",
+      rating: 4.6,
+      reviews: 89,
+      price: 75,
+      image: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=300&h=200&fit=crop",
+      amenities: ["Daycare", "Grooming", "Exercise", "Webcam"]
+    },
+    {
+      id: 3,
+      name: "Furry Friends Lodge",
+      location: "Seattle, WA",
+      rating: 4.9,
+      reviews: 156,
+      price: 95,
+      image: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=300&h=200&fit=crop",
+      amenities: ["Luxury Suites", "Spa", "Training", "Vet Care"]
+    }
+  ]
+
+  const handleSearch = () => {
+    if (!isAuthenticated) {
+      setShowAuthModal(true)
+      return
+    }
+    // Search functionality would go here
+    console.log('Searching for:', { location, checkIn, checkOut })
+    navigate('/hotels')
+  }
+
+  const handlePromoClick = () => {
+    if (!isAuthenticated) {
+      setShowAuthModal(true)
+      return
+    }
+    // Handle authenticated promo click
+    navigate('/hotels')
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <Header />
+
+      {/* Search Section */}
+      <div 
+        className="relative text-white pt-[83px] pb-12 md:pt-[148px] md:pb-[148px] bg-cover bg-left md:bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/images/bkg2m.jpeg')"
+        }}
+      >
+        {/* Desktop background overlay */}
+        <div 
+          className="absolute inset-0 hidden md:block bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: "url('/images/bkg2.jpeg')"
+          }}
+        ></div>
+        {/* Black overlay */}
+        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+        
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Text container that matches search card width */}
+          <div className="mb-8">
+            <div ref={textContainerRef} className="text-center mx-auto">
+              <h1 
+                ref={titleRef}
+                className="font-bold mb-4 leading-tight text-white text-center"
+                style={{ fontSize: `${titleFontSize}px` }}
+              >
+                Find the Perfect Pet Hotel
+              </h1>
+              <p 
+                ref={subtitleRef}
+                className="text-white/80 text-center"
+                style={{ fontSize: `${subtitleFontSize}px` }}
+              >
+                Book comfortable stays for your furry friends
+              </p>
+            </div>
+          </div>
+
+          <div ref={searchCardRef} className="card p-6 mx-auto">
+            <div className="grid md:grid-cols-4 gap-4">
+              <div className="md:col-span-2">
+                <div className="relative">
+                  <MapPin className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <Input
+                    placeholder="Where are you going?"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    className="pl-10 text-gray-900"
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="relative">
+                  <Calendar className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <Input
+                    type="date"
+                    placeholder="Check-in"
+                    value={checkIn}
+                    onChange={(e) => setCheckIn(e.target.value)}
+                    className="pl-10 text-gray-900"
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="relative">
+                  <Calendar className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                  <Input
+                    type="date"
+                    placeholder="Check-out"
+                    value={checkOut}
+                    onChange={(e) => setCheckOut(e.target.value)}
+                    className="pl-10 text-gray-900"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="mt-4">
+              <Button
+                onClick={handleSearch}
+                className="w-full md:w-auto"
+              >
+                <Search className="h-5 w-5 mr-2" />
+                Search Pet Hotels
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Results Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-900">Featured Pet Hotels</h2>
+          <p className="text-gray-600">{mockHotels.length} properties found</p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {mockHotels.map((hotel) => (
+            <div key={hotel.id} className="card overflow-hidden">
+              <img
+                src={hotel.image}
+                alt={hotel.name}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-lg font-semibold text-gray-900">{hotel.name}</h3>
+                  <div className="flex items-center">
+                    <span className="text-sm font-medium text-gray-900">{hotel.rating}</span>
+                    <span className="text-yellow-400 ml-1">★</span>
+                  </div>
+                </div>
+                <p className="text-gray-600 text-sm mb-3">{hotel.location}</p>
+                <div className="flex flex-wrap gap-1 mb-4">
+                  {hotel.amenities.slice(0, 2).map((amenity) => (
+                    <span
+                      key={amenity}
+                      className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded"
+                    >
+                      {amenity}
+                    </span>
+                  ))}
+                  {hotel.amenities.length > 2 && (
+                    <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
+                      +{hotel.amenities.length - 2} more
+                    </span>
+                  )}
+                </div>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <span className="text-2xl font-bold text-gray-900">${hotel.price}</span>
+                    <span className="text-gray-600 text-sm">/night</span>
+                  </div>
+                  <Button 
+                    size="sm"
+                    onClick={() => navigate(`/hotel/${hotel.id}`)}
+                  >
+                    Book Now
+                  </Button>
+                </div>
+                <p className="text-xs text-gray-500 mt-1">{hotel.reviews} reviews</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Partners / Promotions Row */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <h3 className="text-xl font-semibold text-gray-900 mb-4">Promotions, deals, and special offers</h3>
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Left promo card */}
+          <div className="relative overflow-hidden rounded-lg border border-gray-200 bg-white">
+            <div className="absolute inset-0">
+              <img
+                src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1600&auto=format&fit=crop"
+                alt="Vacation rentals"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/40" />
+            </div>
+            <div className="relative p-6 md:p-8 text-white">
+              <p className="text-sm font-medium mb-2">Vacation rentals</p>
+              <h4 className="text-2xl md:text-3xl font-bold leading-tight mb-3">Live the dream in a vacation home</h4>
+              <p className="text-white/90 mb-6">Choose from houses, villas, cabins, and more</p>
+              <Button onClick={handlePromoClick} className="bg-primary hover:bg-primary/90 text-white">Book yours</Button>
+            </div>
+          </div>
+
+          {/* Right promo card */}
+          <div className="flex items-center justify-between rounded-lg border border-gray-200 bg-white p-6 md:p-8">
+            <div className="max-w-xl">
+              <h4 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Quick escape, quality time</h4>
+              <p className="text-gray-700 mb-6">Save up to 20% with a Getaway Deal</p>
+              <Button onClick={handlePromoClick} variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">Save on stays</Button>
+            </div>
+            <img
+              src="https://images.unsplash.com/photo-1511168020191-7d1b7d43b310?q=80&w=800&auto=format&fit=crop"
+              alt="Getaway deal"
+              className="hidden md:block w-48 h-32 object-cover rounded-md"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Authentication Modal */}
+      {showAuthModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-gray-900">Sign in to continue</h2>
+              <button
+                onClick={() => setShowAuthModal(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+            
+            <p className="text-gray-600 mb-6">
+              Please sign in or create an account to search and book pet hotels.
+            </p>
+            
+            <div className="space-y-3">
+              <Button
+                onClick={() => navigate('/login')}
+                className="w-full"
+              >
+                Sign In
+              </Button>
+              
+              <Button
+                onClick={() => navigate('/register')}
+                variant="outline"
+                className="w-full"
+              >
+                Create Account
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
