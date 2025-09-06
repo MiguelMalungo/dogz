@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { LoginForm } from '../components/auth/LoginForm'
 import { useAuthStore } from '../stores/authStore'
 
+
 export function LoginPage() {
   const navigate = useNavigate()
   const { isAuthenticated, login } = useAuthStore()
@@ -32,7 +33,7 @@ export function LoginPage() {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-2 mb-4">
             <img
-            src="./images/logo_main.png"
+            src={`${__BASE_PATH__}/images/logo_main.png`}
             alt="stay.me logo" 
               className="h-10 w-10"
               style={{ filter: 'brightness(0) saturate(100%) invert(59%) sepia(83%) saturate(2066%) hue-rotate(334deg) brightness(91%) contrast(90%)' }}

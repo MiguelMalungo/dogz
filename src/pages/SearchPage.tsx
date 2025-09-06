@@ -6,6 +6,7 @@ import { Input } from '../components/ui/Input'
 import { Header } from '../components/layout/Header'
 import { useAuthStore } from '../stores/authStore'
 
+
 export function SearchPage() {
   const navigate = useNavigate()
   const { isAuthenticated } = useAuthStore()
@@ -127,14 +128,14 @@ export function SearchPage() {
       <div 
         className="relative text-white pt-[83px] pb-8 sm:pb-12 md:pt-[148px] md:pb-[148px] bg-cover bg-left md:bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('./images/bkg2m.jpeg')"
+          backgroundImage: `url(${__BASE_PATH__}/images/bkg2m.jpeg)`
         }}
       >
         {/* Desktop background overlay */}
         <div 
           className="absolute inset-0 hidden md:block bg-cover bg-center bg-no-repeat"
           style={{
-          backgroundImage: "url('./images/bkg2.jpeg')"
+          backgroundImage: `url(${__BASE_PATH__}/images/bkg2.jpeg)`
         }}
         ></div>
         {/* Black overlay */}
