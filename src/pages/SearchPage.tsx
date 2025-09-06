@@ -175,28 +175,22 @@ export function SearchPage() {
                 </div>
               </div>
               <div className="sm:col-span-1">
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                  <Input
-                    type="date"
-                    placeholder="Check-in"
-                    value={checkIn}
-                    onChange={(e) => setCheckIn(e.target.value)}
-                    className="pl-10 text-gray-900"
-                  />
-                </div>
+                <Input
+                  type="date"
+                  placeholder="Check-in"
+                  value={checkIn}
+                  onChange={(e) => setCheckIn(e.target.value)}
+                  className="text-gray-900"
+                />
               </div>
               <div className="sm:col-span-1">
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
-                  <Input
-                    type="date"
-                    placeholder="Check-out"
-                    value={checkOut}
-                    onChange={(e) => setCheckOut(e.target.value)}
-                    className="pl-10 text-gray-900"
-                  />
-                </div>
+                <Input
+                  type="date"
+                  placeholder="Check-out"
+                  value={checkOut}
+                  onChange={(e) => setCheckOut(e.target.value)}
+                  className="text-gray-900"
+                />
               </div>
             </div>
             <div className="mt-4">
