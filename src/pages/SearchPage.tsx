@@ -127,15 +127,15 @@ export function SearchPage() {
       <div 
         className="relative text-white pt-[83px] pb-8 sm:pb-12 md:pt-[148px] md:pb-[148px] bg-cover bg-left md:bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('/dogz/images/bkg2m.jpeg')"
+          backgroundImage: "url('./images/bkg2m.jpeg')"
         }}
       >
         {/* Desktop background overlay */}
         <div 
           className="absolute inset-0 hidden md:block bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url('/dogz/images/bkg2.jpeg')"
-          }}
+          backgroundImage: "url('./images/bkg2.jpeg')"
+        }}
         ></div>
         {/* Black overlay */}
         <div className="absolute inset-0 bg-black bg-opacity-60"></div>
