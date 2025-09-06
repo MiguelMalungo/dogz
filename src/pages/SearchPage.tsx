@@ -125,7 +125,7 @@ export function SearchPage() {
 
       {/* Search Section */}
       <div 
-        className="relative text-white pt-[83px] pb-12 md:pt-[148px] md:pb-[148px] bg-cover bg-left md:bg-center bg-no-repeat"
+        className="relative text-white pt-[83px] pb-8 sm:pb-12 md:pt-[148px] md:pb-[148px] bg-cover bg-left md:bg-center bg-no-repeat"
         style={{
           backgroundImage: "url('/dogz/images/bkg2m.jpeg')"
         }}
@@ -142,18 +142,18 @@ export function SearchPage() {
         
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Text container that matches search card width */}
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <div ref={textContainerRef} className="text-center mx-auto">
               <h1 
                 ref={titleRef}
-                className="font-bold mb-4 leading-tight text-white text-center"
+                className="font-bold mb-3 sm:mb-4 leading-tight text-white text-center"
                 style={{ fontSize: `${titleFontSize}px` }}
               >
                 Find the Perfect Pet Hotel
               </h1>
               <p 
                 ref={subtitleRef}
-                className="text-white/80 text-center"
+                className="text-white/80 text-center px-2"
                 style={{ fontSize: `${subtitleFontSize}px` }}
               >
                 Book comfortable stays for your furry friends
@@ -161,9 +161,9 @@ export function SearchPage() {
             </div>
           </div>
 
-          <div ref={searchCardRef} className="card p-6 mx-auto">
-            <div className="grid md:grid-cols-4 gap-4">
-              <div className="md:col-span-2">
+          <div ref={searchCardRef} className="card p-4 sm:p-6 mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+              <div className="sm:col-span-2 lg:col-span-2">
                 <div className="relative">
                   <MapPin className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                   <Input
@@ -174,7 +174,7 @@ export function SearchPage() {
                   />
                 </div>
               </div>
-              <div>
+              <div className="sm:col-span-1">
                 <div className="relative">
                   <Calendar className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                   <Input
@@ -186,7 +186,7 @@ export function SearchPage() {
                   />
                 </div>
               </div>
-              <div>
+              <div className="sm:col-span-1">
                 <div className="relative">
                   <Calendar className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                   <Input
@@ -202,7 +202,7 @@ export function SearchPage() {
             <div className="mt-4">
               <Button
                 onClick={handleSearch}
-                className="w-full md:w-auto"
+                className="w-full sm:w-auto"
               >
                 <Search className="h-5 w-5 mr-2" />
                 Search Pet Hotels
@@ -213,13 +213,13 @@ export function SearchPage() {
       </div>
 
       {/* Results Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">Featured Pet Hotels</h2>
-          <p className="text-gray-600">{mockHotels.length} properties found</p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 sm:mb-6 gap-2">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Featured Pet Hotels</h2>
+          <p className="text-gray-600 text-sm sm:text-base">{mockHotels.length} properties found</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {mockHotels.map((hotel) => (
             <div key={hotel.id} className="card overflow-hidden">
               <img
@@ -227,10 +227,10 @@ export function SearchPage() {
                 alt={hotel.name}
                 className="w-full h-48 object-cover"
               />
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-lg font-semibold text-gray-900">{hotel.name}</h3>
-                  <div className="flex items-center">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 flex-1 mr-2">{hotel.name}</h3>
+                  <div className="flex items-center flex-shrink-0">
                     <span className="text-sm font-medium text-gray-900">{hotel.rating}</span>
                     <span className="text-yellow-400 ml-1">★</span>
                   </div>
@@ -251,14 +251,15 @@ export function SearchPage() {
                     </span>
                   )}
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
                   <div>
-                    <span className="text-2xl font-bold text-gray-900">${hotel.price}</span>
+                    <span className="text-xl sm:text-2xl font-bold text-gray-900">${hotel.price}</span>
                     <span className="text-gray-600 text-sm">/night</span>
                   </div>
                   <Button 
                     size="sm"
                     onClick={() => navigate(`/hotel/${hotel.id}`)}
+                    className="w-full sm:w-auto"
                   >
                     Book Now
                   </Button>
@@ -271,11 +272,11 @@ export function SearchPage() {
       </div>
 
       {/* Partners / Promotions Row */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <h3 className="text-xl font-semibold text-gray-900 mb-4">Promotions, deals, and special offers</h3>
-        <div className="grid md:grid-cols-2 gap-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12">
+        <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4">Promotions, deals, and special offers</h3>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Left promo card */}
-          <div className="relative overflow-hidden rounded-lg border border-gray-200 bg-white">
+          <div className="relative overflow-hidden rounded-lg border border-gray-200 bg-white min-h-[200px] sm:min-h-[250px]">
             <div className="absolute inset-0">
               <img
                 src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1600&auto=format&fit=crop"
@@ -284,25 +285,25 @@ export function SearchPage() {
               />
               <div className="absolute inset-0 bg-black/40" />
             </div>
-            <div className="relative p-6 md:p-8 text-white">
+            <div className="relative p-4 sm:p-6 lg:p-8 text-white h-full flex flex-col justify-end">
               <p className="text-sm font-medium mb-2">Vacation rentals</p>
-              <h4 className="text-2xl md:text-3xl font-bold leading-tight mb-3">Live the dream in a vacation home</h4>
-              <p className="text-white/90 mb-6">Choose from houses, villas, cabins, and more</p>
-              <Button onClick={handlePromoClick} className="bg-primary hover:bg-primary/90 text-white">Book yours</Button>
+              <h4 className="text-xl sm:text-2xl lg:text-3xl font-bold leading-tight mb-3">Live the dream in a vacation home</h4>
+              <p className="text-white/90 mb-4 sm:mb-6 text-sm sm:text-base">Choose from houses, villas, cabins, and more</p>
+              <Button onClick={handlePromoClick} className="bg-primary hover:bg-primary/90 text-white w-full sm:w-auto">Book yours</Button>
             </div>
           </div>
 
           {/* Right promo card */}
-          <div className="flex items-center justify-between rounded-lg border border-gray-200 bg-white p-6 md:p-8">
-            <div className="max-w-xl">
-              <h4 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Quick escape, quality time</h4>
-              <p className="text-gray-700 mb-6">Save up to 20% with a Getaway Deal</p>
-              <Button onClick={handlePromoClick} variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">Save on stays</Button>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between rounded-lg border border-gray-200 bg-white p-4 sm:p-6 lg:p-8 min-h-[200px] sm:min-h-[250px]">
+            <div className="flex-1 mb-4 sm:mb-0 sm:mr-4">
+              <h4 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-2">Quick escape, quality time</h4>
+              <p className="text-gray-700 mb-4 sm:mb-6 text-sm sm:text-base">Save up to 20% with a Getaway Deal</p>
+              <Button onClick={handlePromoClick} variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white w-full sm:w-auto">Save on stays</Button>
             </div>
             <img
               src="https://images.unsplash.com/photo-1511168020191-7d1b7d43b310?q=80&w=800&auto=format&fit=crop"
               alt="Getaway deal"
-              className="hidden md:block w-48 h-32 object-cover rounded-md"
+              className="w-full sm:w-48 h-32 sm:h-32 object-cover rounded-md flex-shrink-0"
             />
           </div>
         </div>
@@ -311,18 +312,18 @@ export function SearchPage() {
       {/* Authentication Modal */}
       {showAuthModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">Sign in to continue</h2>
+          <div className="bg-white rounded-lg max-w-md w-full mx-4 p-4 sm:p-6">
+            <div className="flex justify-between items-center mb-4 sm:mb-6">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Sign in to continue</h2>
               <button
                 onClick={() => setShowAuthModal(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 hover:text-gray-600 p-1"
               >
-                <X className="h-6 w-6" />
+                <X className="h-5 w-5 sm:h-6 sm:w-6" />
               </button>
             </div>
             
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
               Please sign in or create an account to search and book pet hotels.
             </p>
             
