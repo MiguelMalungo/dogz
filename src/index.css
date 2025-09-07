@@ -29,26 +29,16 @@
     @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-200;
   }
   
-  /* Enhanced search card with iPhone-specific centering */
+  /* Enhanced search card with perfect mobile centering */
   .search-card {
     @apply bg-white rounded-lg shadow-card hover:shadow-hover transition-shadow duration-200;
     box-sizing: border-box;
     overflow: hidden;
-    /* Perfect centering for all iPhone models and orientations */
+    /* Perfect centering using margin auto approach */
     margin: 0 auto;
     width: calc(100% - 2rem);
     max-width: 800px;
     display: block;
-    position: relative;
-    /* Transform-based centering for iPhone compatibility */
-    left: 50%;
-    transform: translateX(-50%);
-    /* Cross-browser transform support */
-    -webkit-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    /* Optimize for dynamic content changes */
-    will-change: transform;
     /* Ensure smooth rendering on iPhone */
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -61,7 +51,7 @@
     width: 100%;
   }
   
-  /* Mobile portrait - single column */
+  /* Mobile portrait - single column with perfect centering */
   @media (max-width: 639px) and (orientation: portrait) {
     .search-grid {
       grid-template-columns: 1fr;
@@ -69,8 +59,21 @@
     }
     
     .search-card {
-      width: calc(100% - 1rem);
+      width: calc(100vw - 2rem);
+      max-width: calc(100vw - 2rem);
       margin: 0 auto;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      -webkit-transform: translateX(-50%);
+    }
+  }
+  
+  /* Extra small mobile screens */
+  @media (max-width: 375px) {
+    .search-card {
+      width: calc(100vw - 1.5rem);
+      max-width: calc(100vw - 1.5rem);
     }
   }
   
