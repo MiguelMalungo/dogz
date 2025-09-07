@@ -29,28 +29,144 @@
     @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-200;
   }
   
-  /* Ensure proper containment for form elements */
+  /* Enhanced search card with iPhone-specific centering */
   .search-card {
     @apply bg-white rounded-lg shadow-card hover:shadow-hover transition-shadow duration-200;
     box-sizing: border-box;
     overflow: hidden;
+    /* Perfect centering for all iPhone models and orientations */
+    margin: 0 auto;
+    width: calc(100% - 2rem);
+    max-width: 800px;
+    display: block;
+    position: relative;
+    /* Transform-based centering for iPhone compatibility */
+    left: 50%;
+    transform: translateX(-50%);
+    /* Cross-browser transform support */
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    /* Optimize for dynamic content changes */
+    will-change: transform;
+    /* Ensure smooth rendering on iPhone */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
   
   .search-grid {
     display: grid;
     gap: 0.75rem;
     box-sizing: border-box;
+    width: 100%;
   }
   
-  /* Mobile-first responsive grid */
-  @media (max-width: 639px) {
+  /* Mobile portrait - single column */
+  @media (max-width: 639px) and (orientation: portrait) {
     .search-grid {
       grid-template-columns: 1fr;
       gap: 0.75rem;
     }
+    
+    .search-card {
+      width: calc(100% - 1rem);
+      margin: 0 auto;
+    }
   }
   
-  @media (min-width: 640px) {
+  /* Mobile landscape - optimized spacing to prevent crowding */
+  @media (max-width: 896px) and (orientation: landscape) {
+    .search-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.375rem;
+      align-items: center;
+      padding: 0.25rem;
+    }
+    
+    .search-card {
+      width: calc(100% - 0.5rem);
+      padding: 0.5rem;
+      /* Reduce height in landscape to fit better */
+      min-height: auto;
+    }
+    
+    /* Optimize layout for landscape - location takes full width */
+    .location-input {
+      grid-column: span 2;
+      margin-bottom: 0.25rem;
+    }
+    
+    /* Date inputs side by side with minimal spacing */
+    .checkin-input,
+    .checkout-input {
+      grid-column: span 1;
+    }
+    
+    /* Reduce input padding in landscape */
+    .search-grid input {
+      padding: 8px 12px;
+      font-size: 15px;
+      min-height: 38px;
+    }
+    
+    /* Compact button in landscape */
+    .search-grid button {
+      padding: 8px 16px;
+      font-size: 14px;
+      min-height: 38px;
+    }
+  }
+  
+  /* iPhone Pro Max landscape specific adjustments */
+  @media (max-width: 932px) and (orientation: landscape) and (max-height: 430px) {
+    .search-grid {
+      gap: 0.25rem;
+    }
+    
+    .search-card {
+      padding: 0.375rem;
+    }
+    
+    .search-grid input,
+    .search-grid button {
+      min-height: 36px;
+      padding: 6px 10px;
+      font-size: 14px;
+    }
+  }
+  
+  /* iPhone standard landscape (iPhone 12, 13, 14) */
+  @media (max-width: 844px) and (orientation: landscape) and (max-height: 390px) {
+    .search-grid {
+      gap: 0.25rem;
+    }
+    
+    .location-input {
+      margin-bottom: 0.125rem;
+    }
+  }
+  
+  /* iPhone Mini landscape */
+  @media (max-width: 812px) and (orientation: landscape) and (max-height: 375px) {
+    .search-card {
+      padding: 0.25rem;
+    }
+    
+    .search-grid {
+      gap: 0.125rem;
+    }
+    
+    .search-grid input,
+    .search-grid button {
+      min-height: 34px;
+      padding: 5px 8px;
+      font-size: 13px;
+    }
+  }
+  
+  /* Tablet and desktop */
+  @media (min-width: 640px) and (orientation: portrait),
+         (min-width: 897px) {
     .search-grid {
       grid-template-columns: 2fr 1fr 1fr;
       gap: 1rem;
@@ -61,6 +177,10 @@
     .search-grid {
       grid-template-columns: 2fr 1fr 1fr;
       gap: 1rem;
+    }
+    
+    .search-card {
+      width: calc(100% - 4rem);
     }
   }
 }
@@ -97,35 +217,77 @@
       user-select: none;
     }
     
-    /* Fix date input fields on iPhone */
+    /* Comprehensive iPhone date picker styling for consistent appearance */
     input[type="date"] {
+      width: 100%;
+      box-sizing: border-box;
       min-height: 44px;
-      font-size: 16px;
-      padding: 12px 16px;
+      padding: 12px 32px 12px 16px;
+      font-size: 16px; /* Prevent zoom on focus in iOS Safari */
       background-color: white;
       border: 1px solid #d1d5db;
-      border-radius: 8px;
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
+      border-radius: 0.375rem;
       color: #374151;
       font-family: inherit;
-      /* Keep native appearance for date picker functionality */
+      
+      /* Remove default styling for consistent appearance */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      position: relative;
+      
+      /* Ensure consistent text rendering */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      
+      /* Custom calendar indicator */
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>');
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+      
+      /* iOS-specific optimizations */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
     }
     
-    /* Ensure calendar picker is visible and functional */
+    /* Restore native date picker functionality */
     input[type="date"]::-webkit-date-and-time-value {
       text-align: left;
+      padding-right: 30px;
     }
     
-    /* Style the calendar picker indicator */
-     input[type="date"]::-webkit-calendar-picker-indicator {
-       opacity: 1;
-       cursor: pointer;
-       margin-left: auto;
-       width: 20px;
-       height: 20px;
-       background: transparent;
-     }
+    /* Date picker calendar indicator - hidden but clickable */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      opacity: 0;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      outline: none;
+      z-index: 2;
+      pointer-events: auto;
+    }
+    
+    /* Date picker focus and active states */
+    input[type="date"]:focus {
+      outline: 2px solid #3b82f6;
+      outline-offset: -2px;
+      background-color: #fefefe;
+    }
+    
+    input[type="date"]:active {
+      background-color: #f8fafc;
+    }
     
     /* Ensure date inputs are properly sized on iPhone */
     .grid input[type="date"] {
@@ -134,58 +296,92 @@
       -webkit-tap-highlight-color: transparent;
     }
     
-    /* Fix form containment on mobile */
+    /* Enhanced form containment with perfect centering */
     .search-card {
-      margin-left: 1rem;
-      margin-right: 1rem;
-      max-width: calc(100vw - 2rem);
+      /* Override base styles for iPhone-specific positioning */
+      position: relative !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      margin: 0 auto !important;
+      max-width: calc(100vw - 2rem) !important;
     }
     
     .search-grid > * {
       min-width: 0;
       box-sizing: border-box;
+      width: 100%;
     }
     
-    /* Ensure inputs don't overflow their containers */
-     .search-grid input {
-       width: 100%;
-       max-width: 100%;
-       box-sizing: border-box;
-       min-width: 0;
-     }
-     
-     /* Additional responsive improvements */
-     .search-card {
-       width: 100%;
-       max-width: 100%;
-     }
-     
-     /* Improve touch targets on mobile */
-     .search-grid input,
-     .search-grid button {
-       min-height: 44px;
-       touch-action: manipulation;
-     }
-     
-     /* Prevent horizontal scrolling */
-     .search-grid {
-       width: 100%;
-       max-width: 100%;
-       overflow: hidden;
-     }
-     
-     /* Ensure proper spacing on very small screens */
-     @media (max-width: 375px) {
-       .search-card {
-         margin-left: 0.5rem;
-         margin-right: 0.5rem;
-         max-width: calc(100vw - 1rem);
-         padding: 0.75rem;
-       }
-       
-       .search-grid {
-         gap: 0.5rem;
-       }
-     }
+    /* Enhanced input styling for all orientations */
+    .search-grid input {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      min-width: 0;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    
+    /* Improved touch targets with orientation awareness */
+    .search-grid input,
+    .search-grid button {
+      min-height: 44px;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+    
+    /* Landscape mode touch target adjustments */
+    @media (orientation: landscape) and (max-height: 500px) {
+      .search-grid input,
+      .search-grid button {
+        min-height: 40px;
+      }
+    }
+    
+    /* Prevent horizontal scrolling with enhanced overflow control */
+    .search-grid {
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+      contain: layout style;
+    }
+    
+    /* iPhone-specific viewport optimizations */
+    @media (max-width: 414px) {
+      .search-card {
+        max-width: calc(100vw - 1rem) !important;
+        padding: 0.75rem;
+      }
+      
+      .search-grid {
+        gap: 0.5rem;
+      }
+    }
+    
+    /* iPhone SE and smaller devices */
+    @media (max-width: 375px) {
+      .search-card {
+        max-width: calc(100vw - 0.5rem) !important;
+        padding: 0.5rem;
+      }
+      
+      .search-grid {
+        gap: 0.375rem;
+      }
+    }
+    
+    /* iPhone landscape specific adjustments */
+    @media (max-width: 896px) and (orientation: landscape) and (max-height: 414px) {
+      .search-card {
+        max-width: calc(100vw - 1rem) !important;
+        padding: 0.5rem;
+      }
+      
+      .search-grid {
+        gap: 0.375rem;
+      }
+    }
   }
 }

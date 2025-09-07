@@ -167,7 +167,7 @@ export function SearchPage() {
             </div>
           </div>
 
-          <div ref={searchCardRef} className="search-card p-4 sm:p-6 mx-auto">
+          <div ref={searchCardRef} className="search-card p-4 sm:p-6">
             <div className="search-grid">
               <div className="location-input">
                 <div className="relative">
