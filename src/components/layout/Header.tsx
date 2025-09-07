@@ -3,6 +3,11 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { User, Settings, ArrowLeft } from 'lucide-react'
 import { useAuthStore } from '../../stores/authStore'
 
+// Helper function to get base path
+const getBasePath = () => {
+  return import.meta.env.MODE === 'production' ? '/dogz' : ''
+}
+
 interface HeaderProps {
   showBackButton?: boolean
   onBack?: () => void
@@ -74,7 +79,7 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
-                <ArrowLeft className="h-5 w-5" />
+                <ArrowLeft className="h-5 w-5 flex-shrink-0" />
                 <span>Back</span>
               </button>
             )}
@@ -83,23 +88,19 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
               className="flex items-center space-x-2 hover:opacity-80 transition-opacity cursor-pointer"
             >
               <img 
-                src="/dogz/images/logo_main.png" 
+                src={`${getBasePath()}/images/logo_main.png`} 
                 alt="stay.me logo" 
-                className="h-8 w-8"
+                className="h-8 w-8 object-contain transition-all duration-300"
                 style={{ 
-                  filter: isSearchPage 
-                    ? (isScrolled 
-                        ? 'brightness(0) saturate(100%) invert(59%) sepia(83%) saturate(2066%) hue-rotate(334deg) brightness(91%) contrast(90%)' 
-                        : 'brightness(0) invert(1)')
-                    : 'brightness(0) saturate(100%) invert(59%) sepia(83%) saturate(2066%) hue-rotate(334deg) brightness(91%) contrast(90%)'
+                  filter: isScrolled 
+                    ? 'brightness(0) saturate(100%) invert(55%) sepia(85%) saturate(2029%) hue-rotate(346deg) brightness(95%) contrast(89%)' 
+                    : 'brightness(0) saturate(100%) invert(100%)'
                 }}
               />
               <span className={`text-xl font-bold transition-colors ${
-                isSearchPage 
-                  ? (isScrolled 
-                      ? 'text-primary' 
-                      : 'text-white')
-                  : 'text-primary'
+                isScrolled 
+                  ? 'text-primary' 
+                  : 'text-white'
               }`}>
                 stay.me
               </span>
@@ -143,7 +144,7 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
                         }}
                         className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center space-x-2"
                       >
-                        <Settings className="h-4 w-4" />
+                        <Settings className="h-4 w-4 flex-shrink-0" />
                         <span>Dashboard</span>
                       </button>
                       <hr className="my-1" />
@@ -151,7 +152,7 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
                         onClick={logout}
                         className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center space-x-2"
                       >
-                        <User className="h-4 w-4" />
+                        <User className="h-4 w-4 flex-shrink-0" />
                         <span>Logout</span>
                       </button>
                     </div>

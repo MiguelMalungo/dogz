@@ -29,3 +29,66 @@
     @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-200;
   }
 }
+
+/* Mobile Safari icon fixes */
+@layer utilities {
+  svg {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  /* Ensure icons are properly rendered on iOS */
+  .lucide {
+    display: inline-block !important;
+    vertical-align: middle;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* iPhone-specific fixes */
+  @supports (-webkit-touch-callout: none) {
+    svg {
+      will-change: transform;
+      -webkit-perspective: 1000;
+      perspective: 1000;
+    }
+    
+    .lucide {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    
+    /* Fix date input fields on iPhone */
+    input[type="date"] {
+      min-height: 44px;
+      font-size: 16px;
+      padding: 12px 16px;
+      background-color: white;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      color: #374151;
+      font-family: inherit;
+    }
+    
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      opacity: 1;
+      cursor: pointer;
+      margin-left: auto;
+      width: 20px;
+      height: 20px;
+    }
+    
+    /* Ensure date inputs are properly sized on iPhone */
+    .grid input[type="date"] {
+      width: 100%;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+  }
+}

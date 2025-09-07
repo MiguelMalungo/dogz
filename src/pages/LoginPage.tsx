@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import { LoginForm } from '../components/auth/LoginForm'
 import { useAuthStore } from '../stores/authStore'
 
+// Helper function to get base path
+const getBasePath = () => {
+  return import.meta.env.MODE === 'production' ? '/dogz' : ''
+}
+
 
 export function LoginPage() {
   const navigate = useNavigate()
@@ -33,10 +38,9 @@ export function LoginPage() {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-2 mb-4">
             <img
-            src={`${__BASE_PATH__}/images/logo_main.png`}
-            alt="stay.me logo" 
-              className="h-10 w-10"
-              style={{ filter: 'brightness(0) saturate(100%) invert(59%) sepia(83%) saturate(2066%) hue-rotate(334deg) brightness(91%) contrast(90%)' }}
+              src={`${getBasePath()}/images/logo_main.png`}
+              alt="stay.me logo" 
+              className="h-10 w-10 object-contain"
             />
             <h1 className="text-3xl font-bold text-gray-900">stay.me</h1>
           </div>
