@@ -167,9 +167,9 @@ export function SearchPage() {
             </div>
           </div>
 
-          <div ref={searchCardRef} className="card p-4 sm:p-6 mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-              <div className="sm:col-span-2 lg:col-span-2">
+          <div ref={searchCardRef} className="search-card p-4 sm:p-6 mx-auto">
+            <div className="search-grid">
+              <div className="location-input">
                 <div className="relative">
                   <MapPin className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                   <Input
@@ -180,7 +180,7 @@ export function SearchPage() {
                   />
                 </div>
               </div>
-              <div className="sm:col-span-1">
+              <div className="checkin-input">
                 <Input
                   type="date"
                   placeholder="Check-in"
@@ -189,7 +189,7 @@ export function SearchPage() {
                   className="text-gray-900"
                 />
               </div>
-              <div className="sm:col-span-1">
+              <div className="checkout-input">
                 <Input
                   type="date"
                   placeholder="Check-out"

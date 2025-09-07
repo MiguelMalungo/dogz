@@ -25,7 +25,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           type={type}
           id={inputId}
           className={cn(
-            'w-full px-4 py-3 border rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-0',
+            'w-full px-4 py-3 border rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-0 box-border',
+            'min-h-[44px] text-base', // Ensure minimum touch target and prevent zoom on iOS
             error 
               ? 'border-error focus:border-error focus:ring-error/20' 
               : 'border-gray-300 focus:border-primary focus:ring-primary/20',

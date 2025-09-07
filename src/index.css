@@ -28,6 +28,41 @@
   .input-field {
     @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-200;
   }
+  
+  /* Ensure proper containment for form elements */
+  .search-card {
+    @apply bg-white rounded-lg shadow-card hover:shadow-hover transition-shadow duration-200;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  
+  .search-grid {
+    display: grid;
+    gap: 0.75rem;
+    box-sizing: border-box;
+  }
+  
+  /* Mobile-first responsive grid */
+  @media (max-width: 639px) {
+    .search-grid {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+  }
+  
+  @media (min-width: 640px) {
+    .search-grid {
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 1rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .search-grid {
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 1rem;
+    }
+  }
 }
 
 /* Mobile Safari icon fixes */
@@ -74,15 +109,23 @@
       transform: translateZ(0);
       color: #374151;
       font-family: inherit;
+      /* Keep native appearance for date picker functionality */
     }
     
-    input[type="date"]::-webkit-calendar-picker-indicator {
-      opacity: 1;
-      cursor: pointer;
-      margin-left: auto;
-      width: 20px;
-      height: 20px;
+    /* Ensure calendar picker is visible and functional */
+    input[type="date"]::-webkit-date-and-time-value {
+      text-align: left;
     }
+    
+    /* Style the calendar picker indicator */
+     input[type="date"]::-webkit-calendar-picker-indicator {
+       opacity: 1;
+       cursor: pointer;
+       margin-left: auto;
+       width: 20px;
+       height: 20px;
+       background: transparent;
+     }
     
     /* Ensure date inputs are properly sized on iPhone */
     .grid input[type="date"] {
@@ -90,5 +133,59 @@
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
     }
+    
+    /* Fix form containment on mobile */
+    .search-card {
+      margin-left: 1rem;
+      margin-right: 1rem;
+      max-width: calc(100vw - 2rem);
+    }
+    
+    .search-grid > * {
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Ensure inputs don't overflow their containers */
+     .search-grid input {
+       width: 100%;
+       max-width: 100%;
+       box-sizing: border-box;
+       min-width: 0;
+     }
+     
+     /* Additional responsive improvements */
+     .search-card {
+       width: 100%;
+       max-width: 100%;
+     }
+     
+     /* Improve touch targets on mobile */
+     .search-grid input,
+     .search-grid button {
+       min-height: 44px;
+       touch-action: manipulation;
+     }
+     
+     /* Prevent horizontal scrolling */
+     .search-grid {
+       width: 100%;
+       max-width: 100%;
+       overflow: hidden;
+     }
+     
+     /* Ensure proper spacing on very small screens */
+     @media (max-width: 375px) {
+       .search-card {
+         margin-left: 0.5rem;
+         margin-right: 0.5rem;
+         max-width: calc(100vw - 1rem);
+         padding: 0.75rem;
+       }
+       
+       .search-grid {
+         gap: 0.5rem;
+       }
+     }
   }
 }
