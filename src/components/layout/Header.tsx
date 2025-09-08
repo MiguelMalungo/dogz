@@ -108,72 +108,20 @@ export function Header({ showBackButton = false, onBack }: HeaderProps) {
           </div>
           
           <div className="flex items-center space-x-4">
-            {user ? (
-              /* Authenticated User Profile */
-              <>
-                <span className={`text-sm hidden md:block transition-colors ${
-                  isSearchPage 
-                    ? (isScrolled ? 'text-gray-700' : 'text-white')
-                    : 'text-gray-700'
-                }`}>
-                  Hello, {user?.name}
-                </span>
-                
-                {/* Profile Dropdown */}
-                <div className="relative" ref={dropdownRef}>
-                  <button
-                    onClick={() => setShowProfileMenu(!showProfileMenu)}
-                    className={`flex items-center space-x-2 transition-colors ${
-                      isSearchPage 
-                        ? (isScrolled 
-                            ? 'text-black hover:text-gray-700' 
-                            : 'text-white hover:text-gray-200')
-                        : 'text-black hover:text-gray-700'
-                    }`}
-                  >
-                    <User className="h-5 w-5" />
-                    <span className="hidden md:block">{user?.name}</span>
-                  </button>
-              
-                  {showProfileMenu && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                      <button
-                        onClick={() => {
-                          navigate('/dashboard')
-                          setShowProfileMenu(false)
-                        }}
-                        className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center space-x-2"
-                      >
-                        <Settings className="h-4 w-4 flex-shrink-0" />
-                        <span>Dashboard</span>
-                      </button>
-                      <hr className="my-1" />
-                      <button
-                        onClick={logout}
-                        className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 flex items-center space-x-2"
-                      >
-                        <User className="h-4 w-4 flex-shrink-0" />
-                        <span>Logout</span>
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </>
-            ) : (
-              /* Login Button for Unauthenticated Users */
-              <button
-                onClick={() => navigate('/login')}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                  isSearchPage 
-                    ? (isScrolled 
-                        ? 'bg-primary text-white hover:bg-primary/90' 
-                        : 'bg-white text-primary hover:bg-gray-100')
-                    : 'bg-primary text-white hover:bg-primary/90'
-                }`}
-              >
-                Login
-              </button>
-            )}
+            {/* Demo mode: Always show profile icon that leads to login */}
+            <button
+              onClick={() => navigate('/login')}
+              className={`flex items-center space-x-2 transition-colors ${
+                isSearchPage 
+                  ? (isScrolled 
+                      ? 'text-gray-600 hover:text-gray-900' 
+                      : 'text-white hover:text-gray-200')
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              <User className="h-5 w-5" />
+              <span className="hidden md:block">Profile</span>
+            </button>
           </div>
         </div>
       </div>

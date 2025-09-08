@@ -106,21 +106,13 @@ export function SearchPage() {
   ]
 
   const handleSearch = () => {
-    if (!isAuthenticated) {
-      setShowAuthModal(true)
-      return
-    }
-    // Search functionality would go here
+    // Demo mode: Allow search without authentication
     console.log('Searching for:', { location, checkIn, checkOut })
     navigate('/hotels')
   }
 
   const handlePromoClick = () => {
-    if (!isAuthenticated) {
-      setShowAuthModal(true)
-      return
-    }
-    // Handle authenticated promo click
+    // Demo mode: Allow promo clicks without authentication
     navigate('/hotels')
   }
 

@@ -17,19 +17,14 @@ const queryClient = new QueryClient({
   },
 })
 
+// Demo mode: Authentication disabled, all routes are accessible
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated } = useAuthStore()
-  
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />
-  }
-  
+  // In demo mode, always render children without authentication check
   return <>{children}</>
 }
 
 function AppRoutes() {
-  const { isAuthenticated } = useAuthStore()
-
+  // Demo mode: No authentication checks needed
   return (
     <Routes>
       {/* Redirect root to search page */}
@@ -41,13 +36,7 @@ function AppRoutes() {
       {/* Public routes */}
       <Route 
         path="/login" 
-        element={
-          isAuthenticated ? (
-            <Navigate to="/search" replace />
-          ) : (
-            <LoginPage />
-          )
-        } 
+        element={<LoginPage />}
       />
       
       {/* Protected routes */}
@@ -74,8 +63,8 @@ function AppRoutes() {
         } 
       />
       
-      {/* Catch all - redirect to login */}
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      {/* Catch all - redirect to search page for demo */}
+      <Route path="*" element={<Navigate to="/search" replace />} />
     </Routes>
   )
 }

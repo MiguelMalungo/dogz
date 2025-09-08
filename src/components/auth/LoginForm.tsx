@@ -1,54 +1,36 @@
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { Link } from 'react-router-dom'
 import { Eye, EyeOff } from 'lucide-react'
-import { useAuthStore } from '../../stores/authStore'
-import { loginSchema, type LoginFormData } from '../../lib/validations'
 import { Button } from '../ui/Button'
 import { Input } from '../ui/Input'
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
-  const { login, isLoading, error, clearError } = useAuthStore()
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
-  })
-
-  const onSubmit = async (data: LoginFormData) => {
-    try {
-      clearError()
-      await login(data)
-    } catch (error) {
-      // Error is handled by the store
-    }
+  // Demo mode: No authentication processing
+  
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Demo mode: Form submission disabled
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleFormSubmit} className="space-y-6">
       <div>
         <Input
-          {...register('email')}
           type="email"
           label="Email Address"
           placeholder="Enter your email"
-          error={errors.email?.message}
+          disabled
         />
       </div>
 
       <div>
         <div className="relative">
           <Input
-            {...register('password')}
             type={showPassword ? 'text' : 'password'}
             label="Password"
             placeholder="Enter your password"
-            error={errors.password?.message}
+            disabled
           />
           <button
             type="button"
@@ -67,9 +49,9 @@ export function LoginForm() {
       <div className="flex items-center justify-between">
         <label className="flex items-center">
           <input
-            {...register('rememberMe')}
             type="checkbox"
             className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+            disabled
           />
           <span className="ml-2 text-sm text-gray-600">Remember me</span>
         </label>
@@ -81,16 +63,14 @@ export function LoginForm() {
         </Link>
       </div>
 
-      {error && (
-        <div className="p-3 text-sm text-error bg-error/10 border border-error/20 rounded-lg">
-          {error}
-        </div>
-      )}
+      <div className="p-3 text-sm text-blue-600 bg-blue-50 border border-blue-200 rounded-lg">
+        Demo Mode: Click anywhere on the card above to continue
+      </div>
 
       <Button
         type="submit"
-        loading={isLoading}
         className="w-full"
+        disabled
       >
         Sign In
       </Button>
