@@ -31,7 +31,8 @@
   
   /* Enhanced search card with perfect mobile centering */
   .search-card {
-    @apply bg-white rounded-lg shadow-card hover:shadow-hover transition-shadow duration-200;
+    @apply rounded-lg shadow-card hover:shadow-hover transition-shadow duration-200;
+    background-color: rgba(255, 255, 255, 0.7);
     box-sizing: border-box;
     overflow: hidden;
     /* Perfect centering using margin auto approach */

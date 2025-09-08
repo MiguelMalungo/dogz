@@ -45,7 +45,7 @@ export function SearchPage() {
       textContainerRef.current.style.margin = '0 auto'
       
       // Adjust title font size - start larger and fit to full card width
-      let titleSize = window.innerWidth < 768 ? 28 : 42
+      let titleSize = window.innerWidth < 768 ? 38 : 42  // Increased mobile from 28 to 38 (+10px)
       titleRef.current.style.fontSize = `${titleSize}px`
       
       while (titleRef.current.scrollWidth > searchCardWidth && titleSize > 16) {
@@ -54,11 +54,12 @@ export function SearchPage() {
       }
       setTitleFontSize(titleSize)
       
-      // Adjust subtitle font size - start larger and fit to full card width
-      let subtitleSize = window.innerWidth < 768 ? 18 : 24
+      // Adjust subtitle font size - ensure single line fit within card width
+      let subtitleSize = window.innerWidth < 768 ? 16 : 24  // Reduced mobile from 18 to 16
       subtitleRef.current.style.fontSize = `${subtitleSize}px`
       
-      while (subtitleRef.current.scrollWidth > searchCardWidth && subtitleSize > 12) {
+      // More aggressive sizing for subtitle to ensure single line
+      while (subtitleRef.current.scrollWidth > searchCardWidth && subtitleSize > 10) {
         subtitleSize -= 1
         subtitleRef.current.style.fontSize = `${subtitleSize}px`
       }
@@ -207,7 +208,7 @@ export function SearchPage() {
                   />
                   <div className={`flex items-center space-x-2 px-4 py-2 rounded-lg border-2 transition-all duration-200 ${
                     petType === 'dog'
-                      ? 'border-primary bg-primary/10 text-primary'
+                      ? 'border-primary bg-white text-primary shadow-sm'
                       : 'border-gray-300 text-gray-600 hover:border-primary/50 hover:text-primary/70'
                   }`}>
                     <Dog className="h-5 w-5" />
@@ -226,7 +227,7 @@ export function SearchPage() {
                   />
                   <div className={`flex items-center space-x-2 px-4 py-2 rounded-lg border-2 transition-all duration-200 ${
                     petType === 'cat'
-                      ? 'border-primary bg-primary/10 text-primary'
+                      ? 'border-primary bg-white text-primary shadow-sm'
                       : 'border-gray-300 text-gray-600 hover:border-primary/50 hover:text-primary/70'
                   }`}>
                     <Cat className="h-5 w-5" />
