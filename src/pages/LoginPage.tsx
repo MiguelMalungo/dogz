@@ -56,7 +56,7 @@ export function LoginPage() {
           title="Click to bypass login and continue"
         >
           <div className="text-center mb-4">
-            <p className="text-sm text-gray-500 mb-2">👆 Click anywhere on this card to continue</p>
+            <p className="text-sm text-gray-500 mb-2">Demo Mode: Click anywhere on this card to continue</p>
           </div>
           <LoginForm />
         </div>

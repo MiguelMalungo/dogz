@@ -63,10 +63,6 @@ export function LoginForm() {
         </Link>
       </div>
 
-      <div className="p-3 text-sm text-blue-600 bg-blue-50 border border-blue-200 rounded-lg">
-        Demo Mode: Click anywhere on the card above to continue
-      </div>
-
       <Button
         type="submit"
         className="w-full"
