@@ -25,11 +25,12 @@ export function LoginPage() {
     }
   }
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/search')
-    }
-  }, [isAuthenticated, navigate])
+  // Demo mode: Disable automatic redirect to allow users to see login page
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigate('/search')
+  //   }
+  // }, [isAuthenticated, navigate])
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
