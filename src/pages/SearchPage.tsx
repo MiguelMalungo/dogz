@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Search, MapPin, Calendar, X } from 'lucide-react'
+import { Search, MapPin, Calendar, X, Dog, Cat } from 'lucide-react'
 import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
 import { Header } from '../components/layout/Header'
@@ -18,6 +18,7 @@ export function SearchPage() {
   const [location, setLocation] = useState('')
   const [checkIn, setCheckIn] = useState('')
   const [checkOut, setCheckOut] = useState('')
+  const [petType, setPetType] = useState<'dog' | 'cat'>('dog')
   const [guests, setGuests] = useState('1')
   const [pets, setPets] = useState('1')
   const [showResults, setShowResults] = useState(false)
@@ -191,6 +192,50 @@ export function SearchPage() {
                 />
               </div>
             </div>
+            
+            {/* Pet Type Selection */}
+            <div className="mt-4 flex justify-center">
+              <div className="flex items-center space-x-6">
+                <label className="flex items-center cursor-pointer group">
+                  <input
+                    type="radio"
+                    name="petType"
+                    value="dog"
+                    checked={petType === 'dog'}
+                    onChange={(e) => setPetType(e.target.value as 'dog' | 'cat')}
+                    className="sr-only"
+                  />
+                  <div className={`flex items-center space-x-2 px-4 py-2 rounded-lg border-2 transition-all duration-200 ${
+                    petType === 'dog'
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-gray-300 text-gray-600 hover:border-primary/50 hover:text-primary/70'
+                  }`}>
+                    <Dog className="h-5 w-5" />
+                    <span className="font-medium">Dogs</span>
+                  </div>
+                </label>
+                
+                <label className="flex items-center cursor-pointer group">
+                  <input
+                    type="radio"
+                    name="petType"
+                    value="cat"
+                    checked={petType === 'cat'}
+                    onChange={(e) => setPetType(e.target.value as 'dog' | 'cat')}
+                    className="sr-only"
+                  />
+                  <div className={`flex items-center space-x-2 px-4 py-2 rounded-lg border-2 transition-all duration-200 ${
+                    petType === 'cat'
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-gray-300 text-gray-600 hover:border-primary/50 hover:text-primary/70'
+                  }`}>
+                    <Cat className="h-5 w-5" />
+                    <span className="font-medium">Cats</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+            
             <div className="mt-4">
               <Button
                 onClick={handleSearch}
