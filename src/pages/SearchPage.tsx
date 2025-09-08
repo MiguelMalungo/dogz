@@ -301,7 +301,7 @@ export function SearchPage() {
               <Button onClick={handlePromoClick} variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white w-full sm:w-auto">Save on stays</Button>
             </div>
             <img
-              src="https://images.unsplash.com/photo-1511168020191-7d1b7d43b310?q=80&w=800&auto=format&fit=crop"
+              src={`${getBasePath()}/images/bkg.jpeg`}
               alt="Getaway deal"
               className="w-full sm:w-48 h-32 sm:h-32 object-cover rounded-md flex-shrink-0"
             />
